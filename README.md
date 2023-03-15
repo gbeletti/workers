@@ -61,7 +61,7 @@ Another way is to use the `Job` type as follows. This type implements the interf
 var a, b = 2, 3
 var j workers.Job = func() {
     c := a+b
-    log.Println("worker", workerID, "calculated a+b", c)
+    log.Println("worker calculated a+b", c)
 }
 err := workers.DoJob(j)
 ```
