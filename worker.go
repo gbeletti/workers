@@ -67,6 +67,7 @@ func clean(ctx context.Context) {
 		break
 	}
 	close(doJob)
+	totalWorkers, counter = 0, 0
 }
 
 // DoJob sends job for workers to do
