@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"sync/atomic"
+	"time"
 )
 
 const (
@@ -53,6 +54,19 @@ func Start(ctx context.Context, opts ...Options) {
 	for i = 0; i < totalWorkers; i++ {
 		go runWorker(ctx)
 	}
+	go stop(ctx)
+}
+
+func stop(ctx context.Context) {
+	<-ctx.Done()
+	for {
+		if Alive() {
+			time.Sleep(time.Millisecond)
+			continue
+		}
+		break
+	}
+	close(doJob)
 }
 
 // DoJob sends job for workers to do
