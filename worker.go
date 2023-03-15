@@ -70,8 +70,8 @@ func clean(ctx context.Context) {
 	totalWorkers, counter = 0, 0
 }
 
-// DoJob sends job for workers to do
-func DoJob(w Worker) error {
+// DoWork sends job for workers to do
+func DoWork(w Worker) error {
 	if !Alive() {
 		return ErrNoWorkers
 	}

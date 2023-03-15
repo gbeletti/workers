@@ -8,7 +8,7 @@ import (
 	"github.com/gbeletti/workers"
 )
 
-func TestDoJob(t *testing.T) {
+func TestDoWork(t *testing.T) {
 	timeout := time.Millisecond * 20
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	t.Cleanup(func() {
@@ -28,14 +28,14 @@ func TestDoJob(t *testing.T) {
 	}
 
 	// sends a job to the workers to do
-	if err := workers.DoJob(job); err != nil {
+	if err := workers.DoWork(job); err != nil {
 		t.Fatal("expected to send a job for the workers, instead there is no workers running")
 	}
 
 	// wait timeout and the workers to stop
 	time.Sleep(time.Millisecond * 25)
 
-	if err := workers.DoJob(job); err == nil {
+	if err := workers.DoWork(job); err == nil {
 		t.Error("all workers should have stopped, no job should have been done")
 	}
 

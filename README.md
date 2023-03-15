@@ -35,7 +35,7 @@ defer cancel()
 workers.Start(ctx) //10 goroutines and unbuffered channel
 ```
 
-There are 2 ways of executing something, calling `DoFunc` or `DoJob`.
+There are 2 ways of executing something, calling `DoFunc` or `DoWork`.
 
 ### DoFunc
 
@@ -49,9 +49,9 @@ workers.DoFunc(func() {
 })
 ```
 
-### DoJob
+### DoWork
 
-Another way to execute something is by calling `DoJob`. This function receives the interface `Worker` so any struct that implements `Work` can be used here.
+Another way to execute something is by calling `DoWork`. This function receives the interface `Worker` so any struct that implements `Work` can be used here.
 
 ```go
 type WorkJob struct{
@@ -68,7 +68,7 @@ w := WorkJob {
     a: 2,
     b: 3,
 }
-err := workers.DoJob(w)
+err := workers.DoWork(w)
 ```
 
 You can also use the `Job` type as follows. This type implements the interface `Worker`.
@@ -79,7 +79,7 @@ var j workers.Job = func() {
     c := a+b
     log.Println("worker calculated a+b", c)
 }
-err := workers.DoJob(j)
+err := workers.DoWork(j)
 ```
 
 Just like magic, your job will be executed by one of the available workers.
