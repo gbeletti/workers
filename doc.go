@@ -1,2 +1,2 @@
-// Package workers helps you run n tasks simutaneously.
+// Package workers helps you run n tasks concurrently.
 package workers
