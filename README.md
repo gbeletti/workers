@@ -35,7 +35,23 @@ defer cancel()
 workers.Start(ctx) //10 goroutines and unbuffered channel
 ```
 
-After starting the workers you can call `DoJob` for the workers to do anything you need. This function receives the interface `Worker` so any struct that implements `Work` can be used here.
+There are 2 ways of executing something, calling `DoFunc` or `DoJob`.
+
+### DoFunc
+
+After starting the workers you can call `DoFunc` for the workers to do anything you need. This function receives a function to be executed.
+
+```go
+var a, b = 2, 3
+workers.DoFunc(func() {
+    c := a+b
+    log.Println("worker calculated a+b", c)
+})
+```
+
+### DoJob
+
+Another way to execute something is by calling `DoJob`. This function receives the interface `Worker` so any struct that implements `Work` can be used here.
 
 ```go
 type WorkJob struct{
@@ -55,7 +71,7 @@ w := WorkJob {
 err := workers.DoJob(w)
 ```
 
-Another way is to use the `Job` type as follows. This type implements the interface `Worker`.
+You can also use the `Job` type as follows. This type implements the interface `Worker`.
 
 ```go
 var a, b = 2, 3
