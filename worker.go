@@ -80,7 +80,7 @@ func DoJob(w Worker) error {
 	return nil
 }
 
-// DoFunc sends an anonymous function to be executed to one of the workers
+// DoFunc sends a function to be executed to one of the workers
 func DoFunc(f func()) error {
 	if !Alive() {
 		return ErrNoWorkers
