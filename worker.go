@@ -54,10 +54,10 @@ func Start(ctx context.Context, opts ...Options) {
 	for i = 0; i < totalWorkers; i++ {
 		go runWorker(ctx)
 	}
-	go stop(ctx)
+	go clean(ctx)
 }
 
-func stop(ctx context.Context) {
+func clean(ctx context.Context) {
 	<-ctx.Done()
 	for {
 		if Alive() {
