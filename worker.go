@@ -80,6 +80,16 @@ func DoJob(w Worker) error {
 	return nil
 }
 
+// DoFunc sends an anonymous function to be executed to one of the workers
+func DoFunc(f func()) error {
+	if !Alive() {
+		return ErrNoWorkers
+	}
+	var j Job = f
+	doJob <- j
+	return nil
+}
+
 // Alive checks if the workers are alive
 func Alive() bool {
 	return atomic.LoadInt64(&counter) < totalWorkers
